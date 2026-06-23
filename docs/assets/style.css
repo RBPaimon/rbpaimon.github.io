@@ -1,0 +1,148 @@
+:root {
+  --white: #ffffff;
+  --silver-100: #f4f5f7;
+  --silver-200: #e6e8ec;
+  --silver-400: #b8bcc4;
+  --silver-600: #8a8f99;
+  --ink: #2a2d33;
+  --glass: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.70);
+  --glass-shadow: rgba(138, 143, 153, 0.18);
+  --space: 8px;
+  --radius: 16px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+  line-height: 1.6;
+  background: var(--white);
+  min-height: 100vh;
+}
+
+/* Soft silver radial wash so the frosted glass reads as transparent. */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(60% 50% at 20% 0%, var(--silver-100), transparent 70%),
+    radial-gradient(50% 40% at 95% 20%, var(--silver-200), transparent 70%),
+    var(--white);
+}
+
+header, main, footer {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.hero {
+  padding-top: 96px;
+  padding-bottom: 48px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  color: var(--silver-600);
+  margin: 0 0 8px;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.15;
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+}
+
+.lede {
+  font-size: 1.15rem;
+  color: var(--silver-600);
+  max-width: 60ch;
+}
+
+.section-title {
+  margin: 48px 0 16px;
+}
+
+/* Frosted glass surface */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 30px var(--glass-shadow);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 32px;
+  margin: 24px 0;
+}
+
+.glass h2 { margin-top: 0; }
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.step { margin: 0; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid var(--silver-400);
+  color: var(--silver-600);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.step h3 { margin: 0 0 8px; }
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.feature-list li {
+  padding-left: 16px;
+  border-left: 2px solid var(--silver-200);
+}
+
+footer {
+  padding: 48px 24px 64px;
+  color: var(--silver-600);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--silver-200);
+  margin-top: 48px;
+}
+
+code {
+  background: var(--silver-100);
+  border: 1px solid var(--silver-200);
+  border-radius: 6px;
+  padding: 1px 6px;
+  font-size: 0.9em;
+}
+
+a { color: var(--ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

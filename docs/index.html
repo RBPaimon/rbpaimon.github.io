@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RBPaimon Agents — How the plugin works</title>
+  <meta name="description" content="A conceptual overview of the RBPaimon Agents plugin: a server-authoritative, tool-using AI agent system for Roblox." />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"></div>
+
+  <header class="hero">
+    <p class="eyebrow">RBPaimon Agents Library</p>
+    <h1>A tool-using AI agent system for Roblox</h1>
+    <p class="lede">
+      Players ask questions in plain language. The library decides which tool
+      answers them, runs that tool on the server, and returns a human-readable
+      reply — securely and cost-efficiently. This page explains how it works
+      conceptually; it does not publish the plugin's source code.
+    </p>
+  </header>
+
+  <main>
+    <section class="glass" aria-labelledby="what">
+      <h2 id="what">What it is</h2>
+      <p>
+        The plugin is a reusable, <strong>server-authoritative</strong> agent
+        system shared across RBPaimon places. Other packages register
+        <em>categories</em> and <em>tools</em> into a shared registry. When a
+        player asks something, the library narrows down to the right tool, runs
+        it, and writes the final answer.
+      </p>
+    </section>
+
+    <section aria-labelledby="flow">
+      <h2 id="flow" class="section-title">How a request flows</h2>
+      <div class="steps">
+        <article class="glass step">
+          <span class="badge">1</span>
+          <h3>Category selection</h3>
+          <p>
+            The client sends the question as an <strong>intent</strong> — it never
+            computes an answer. The server shows the model every category and asks
+            it to pick the most relevant one.
+          </p>
+        </article>
+        <article class="glass step">
+          <span class="badge">2</span>
+          <h3>Tool selection</h3>
+          <p>
+            The server reveals only that category's tools and asks the model to
+            choose a single tool and the arguments it needs. Sending tools in
+            stages keeps token spend low.
+          </p>
+        </article>
+        <article class="glass step">
+          <span class="badge">3</span>
+          <h3>Execution &amp; answer</h3>
+          <p>
+            The server runs the chosen tool, feeds the result back to the model,
+            and the model writes the final reply. Usage is totalled across all
+            three calls and charged to the player.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="glass" aria-labelledby="security">
+      <h2 id="security">Built secure by default</h2>
+      <ul class="feature-list">
+        <li>
+          <strong>Read-only client.</strong> The chat GUI only observes server
+          state and sends intents. It never spends tokens, executes tools, or
+          sees the API key.
+        </li>
+        <li>
+          <strong>Encrypted API key.</strong> The OpenRouter key is stored
+          encrypted at rest and decrypted server-side only. The decryption
+          passphrase is provisioned at runtime and never committed.
+        </li>
+        <li>
+          <strong>Server-validated models.</strong> Players pick a model from a
+          GUI dropdown backed by a server allowlist, so a client can never
+          request an unlisted model.
+        </li>
+      </ul>
+    </section>
+
+    <section class="glass" aria-labelledby="economy">
+      <h2 id="economy">Tokens &amp; sessions</h2>
+      <p>
+        A token economy meters AI usage; other packages can grant tokens, and
+        each request deducts what it costs (creators use the AI for free). Chat
+        history lives in server memory only — it is created fresh on join and
+        discarded on leave, never written to a datastore.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>RBPaimon Agents Library — conceptual documentation. Design follows
+    <code>DESIGN.md</code>: white, silver, and transparent.</p>
+  </footer>
+</body>
+</html>
